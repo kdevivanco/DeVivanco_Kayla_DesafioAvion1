@@ -80,12 +80,8 @@ function createEnemies(){
 				enemyDiv.id='enemint'+ i;
 				enemyDiv.style.left = enemies[i].left +15 +'px';
 				enemyDiv.style.top = enemies[i].top +'px';
-
-				
 				enemiesDiv.appendChild(enemyDiv);
-			//			output+='<div id= "enemint" style="top:'+enemies[i].top+'"></div>'
 		}
- //   document.getElementById('enemy').innerHTML = output;
   }
   createEnemies();
 
@@ -98,8 +94,7 @@ function createEnemies(){
 
 		console.log(position);
 		enemyDiv.style.top=position+'px';
-		// console.log(enemyDiv);
-		
+
 	}
 }
 
