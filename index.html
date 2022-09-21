@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<!--ESTE TRABAJO PERTENECE A: KAYLA DE VIVANCO-->
+<head>
+	<title></title>
+</head>
+<body>
+	<style type="text/css">
+	
+	.container{
+		background-image: url(/oceano.png);
+		width: 800px;
+		height: 800px;
+	}
+	.player{
+		height:70px ;
+		width: 70px;
+		background-image: url(/avion.png) ;
+		position: absolute;
+		top:0px;
+		left:0px;
+	}
+	.enemies{
+		width:800px;
+		height:800px;
+	}
+
+
+
+	.enemint{
+		height:60px ;
+		width: 60px;
+		position:absolute;
+		background-image: url(/enemigo.png);
+	}
+
+	.misil{
+		height:20px ;
+		width: 20px;
+		position:absolute;
+		background-image: url(/Misil.png);
+	}
+
+
+	
+	</style>
+
+	<div>
+
+	</div>
+	<div class="container" id="container">
+		<div class="enemies" id="enemies">
+
+		</div>
+		<div class="player" id="player">
+		</div>
+		
+	</div>
+		
+
+
+<script type="text/javascript">
+	
+var enemies=[
+	{left: 350,top:230},
+	{left: 450,top:200},
+	{left: 150,top:250},
+	{left: 200,top:100}
+]
+
+function createEnemies(){
+    output="";
+
+		let enemiesDiv = document.getElementById('enemies');
+
+    for (let i = 0; i < enemies.length; i++){
+			console.log(i);
+				let enemyDiv = document.createElement("div");
+				enemyDiv.className = 'enemint'
+				enemyDiv.id='enemint'+ i;
+				enemyDiv.style.left = enemies[i].left +15 +'px';
+				enemyDiv.style.top = enemies[i].top +'px';
+
+				
+				enemiesDiv.appendChild(enemyDiv);
+			//			output+='<div id= "enemint" style="top:'+enemies[i].top+'"></div>'
+		}
+ //   document.getElementById('enemy').innerHTML = output;
+  }
+  createEnemies();
+
+	function moveEnemies(){
+	for (let i = 0; i < enemies.length; i++){
+		let enemyDiv = document.getElementById('enemint'+i);
+
+		let position = parseInt(enemyDiv.style.top, 10);
+		position+=5;
+
+		console.log(position);
+		enemyDiv.style.top=position+'px';
+		// console.log(enemyDiv);
+		
+	}
+}
+
+	var player={
+		x:10.2,
+		y:21
+	};
+
+
+	
+
+	function drawPlayer(){
+    document.getElementById('player').style.top = (player.y*35)+'px'
+    document.getElementById('player').style.left = (player.x*35)+'px'
+  }
+
+  drawPlayer();
+
+let misilCount= 0;
+
+function createMisil(){  
+	let playerDiv = document.getElementById('player');
+	let misilContainer= document.getElementById('container')
+	let misilDiv = document.createElement("div");
+	let planePositionLeft = parseInt(playerDiv.style.left);
+	let planePositionTop = parseInt(playerDiv.style.top);
+
+				misilDiv.className = 'misil';
+				misilDiv.id='misil'+misilCount;
+				misilDiv.style.left = planePositionLeft+25+'px';
+				misilDiv.style.top = planePositionTop-15+'px';
+				misilContainer.appendChild(misilDiv);
+				misilCount++;
+}
+
+function moveMisil(){
+	for (let i = 0; i < misilCount; i++){
+		let misilDiv = document.getElementById('misil'+i);
+		console.log(misilDiv)
+		let misilPositionTop = parseInt(misilDiv.style.top);
+		misilPositionTop-=5;
+
+		misilDiv.style.top=misilPositionTop+'px';
+		// console.log(enemyDiv);
+		
+	}
+}
+	
+	document.onkeydown = function(e){
+		//left
+		if (e.keyCode == 37 && player.x>0.2){
+			player.x--;
+		}
+		//right
+		if (e.keyCode == 39&& player.x<21.2){
+			player.x++;	
+		}
+		//down
+		if (e.keyCode == 40 && player.y!==21){
+			player.y++
+			
+		}
+		//up
+		if (e.keyCode == 38 && player.y!==14 ){
+			player.y--
+			console.log(player.y)
+		} 
+		if(e.keyCode == 32){
+			createMisil()
+		}
+		drawPlayer()
+	}
+
+	
+
+	// var gameLoop = function() {
+	// 	setTimeout(500);
+	// 	createEnemies();
+	// }
+
+	// gameLoop();
+	
+	function gameLoop(){
+		console.log('i');
+		moveEnemies();
+		moveMisil();
+		setTimeout(gameLoop,150);
+	 }
+
+ 	//gameLoop();
+	
+
+	</script>
+</body>
+</html>
